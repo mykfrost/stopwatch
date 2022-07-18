@@ -5,31 +5,44 @@ function Stopwatch(){
 
    
     Object.defineProperty(this, 'duration',{
-        get: function(){return duration;}
+        get: function(){return duration;},
+        set: function(value){duration = value;}
+    });
+
+
+    Object.defineProperty(this, 'startTime',{
+        get: function(){return startTime;}
+    });
+
+
+    Object.defineProperty(this, 'endTime',{
+        get: function(){return endTime;}
+    }); 
+
+    Object.defineProperty(this, 'running',{
+        get: function(){return running;}
     });
 }
 
-const watch = new Stopwatch();
- console.log(watch.start());
 
  Stopwatch.prototype.start = function(){
-    if(running)
+    if(this.running)
     throw new Error('Stopwatch has already started.');
-    running =  true;
-    startTime = new Date();
+    this.running =  true;
+    this.startTime = new Date();
 };
 
 Stopwatch.prototype.stop = function(){
-    if(!running)
+    if(!this.running)
     throw new Error('Stopwatch is not started.');
-    running = false;
-    endTime =new Date();
+    this.running = false;
+    this.endTime =new Date();
 
-    const seconds = (endTime.getTime() -startTime()) / 1000;
-    duration =+duration;
+    const seconds = (this.endTime.getTime() -this.startTime()) / 1000;
+    this.duration =+duration;
 };
 Stopwatch.prototype.reset = function(){
-    startTime = null;
-    endTime = null;
-    duration = 0;
+    this.startTime = null;
+   this.endTimeime = null;
+   this.duration = 0;
 };
